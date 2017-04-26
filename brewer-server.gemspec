@@ -3,7 +3,7 @@ require 'rake'
 Gem::Specification.new do |s|
   s.name               = "brewer-server"
   s.version            = "0.0.03"
-  s.default_executablew = "brewer-server"
+  s.default_executable = "brewer-server"
 
   s.authors = ["Luke Sweeney", "Jake Gutierrez"]
   s.date = %q{2017-04-25}
@@ -24,9 +24,10 @@ Gem::Specification.new do |s|
   # Runtime dependencies
   s.add_runtime_dependency 'brewer'
   s.add_runtime_dependency 'wannabe_bool'
-  # s.add_runtime_dependency 'net-ping', '~> 1.7'
   s.add_runtime_dependency 'require_all'
+  s.add_runtime_dependency 'thin'
   s.add_runtime_dependency 'sinatra'
+  s.add_runtime_dependency 'sinatra-sse'
   s.add_runtime_dependency 'rack-flash3'
   s.add_runtime_dependency 'rack-test'
 
