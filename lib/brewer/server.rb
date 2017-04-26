@@ -1,7 +1,7 @@
-require "brewer/server/version"
-
 module Brewer
-  module Server
-    # Your code goes here...
+  class Server
+    def hello
+      "hello world"
+    end
   end
 end

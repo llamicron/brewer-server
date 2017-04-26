@@ -1,5 +1,7 @@
 require "bundler/setup"
-require "brewer/server"
+require_relative "../lib/brewer/server"
+require 'rack/test'
+require 'rspec'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -9,3 +11,10 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+module RSpecMixin
+  include Rack::Test::Methods
+  def app() Sinatra::Application end
+end
+
+RSpec.configure { |c| c.include RSpecMixin }

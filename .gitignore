@@ -9,4 +9,5 @@
 /tmp/
 
 # rspec failure tracking
+spec/.rspec_status
 .rspec_status
