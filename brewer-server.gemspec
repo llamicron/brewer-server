@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.post_install_message = "🍺  have fun 🍺"
   s.email = %q{luke@thesweeneys.org}
   # s.files = FileList.new(['lib/', 'lib/brewer/', 'lib/brewer/server/*.rb', 'bin/*', 'lib/views/*', '[A-Z]*', 'spec/*.rb']).to_a
-  s.files = Dir.glob("{bin,lib}/**/*")
+  s.files = Dir.glob("{bin,lib,views}/**/*")
   s.executables = ['brewer-server']
   s.bindir = 'bin'
   s.test_files = FileList.new(["spec/*.rb"]).to_a

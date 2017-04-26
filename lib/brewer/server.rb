@@ -7,8 +7,13 @@ module Brewer
       set :sessions, true
       set :bind, "0.0.0.0"
       set :port, 8080
+      set :views, Proc.new { File.join(File.expand_path("../..", __dir__), "views") }
 
       $brewer = Brewer.new
+    end
+
+    get '/' do
+      erb :index
     end
 
     get '/rspec-testing' do
