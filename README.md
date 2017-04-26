@@ -1,8 +1,6 @@
 # Brewer::Server
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/brewer/server`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem is a web interface for [llamicron/brewer](http://github.com/llamicron/brewer)
 
 ## Installation
 
@@ -14,28 +12,35 @@ gem 'brewer-server'
 
 And then execute:
 
-    $ bundle
+```shell
+$ bundle
+```
 
 Or install it yourself as:
 
-    $ gem install brewer-server
+```shell
+$ gem install brewer-server
+```
 
 ## Usage
+Run
 
-TODO: Write usage instructions here
+```shell
+$ brewer-server -p [port]
+```
 
-## Development
+replacing, `[port]` with a port of your choosing. Ports under 1024 will need sudo.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Visit `localhost:[port]`
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+If you're working on a raspberry pi as is intended, replace localhost with the ip of the pi, eg. `192.168.0.224:8080`
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/brewer-server.
-
+Bug reports and pull requests are welcome on [GitHub](https://github.com/llamicron/brewer-server).
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
 
+Luke Sweeney, 2017
