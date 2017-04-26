@@ -1,36 +1,38 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'brewer/server/version'
+require 'rake'
 
-Gem::Specification.new do |spec|
-  spec.name          = "brewer-server"
-  spec.version       = Brewer::Server::VERSION
-  spec.authors       = ["David Sweeney"]
-  spec.email         = ["sweeney@tamu.edu"]
+Gem::Specification.new do |s|
+  s.name               = "brewer-server"
+  s.version            = "0.0.01"
+  s.default_executable = "brewer-server"
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
-  spec.license       = "MIT"
+  s.authors = ["Luke Sweeney", "Jake Gutierrez"]
+  s.date = %q{2017-04-25}
+  s.description = %q{A web interface for llamicron/brewer}
+  s.post_install_message = "🍺  have fun 🍺"
+  s.email = %q{luke@thesweeneys.org}
+  s.files = FileList.new(['lib/*.rb', 'lib/brewer/server/*.rb', 'bin/*', 'lib/views/*', '[A-Z]*', 'spec/*.rb']).to_a
+  s.executables = ['brewer-server']
+  s.bindir = 'bin'
+  s.test_files = FileList.new(["spec/*.rb"]).to_a
+  s.homepage = %q{https://rubygems.org/gems/brewer-server}
+  s.require_paths = ["lib", "lib"]
+  s.rubygems_version = %q{1.6.2}
+  s.summary = %q{A web interface for llamicron/brewer}
+  s.license = 'MIT'
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
-  if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "TODO: Set to 'http://mygemserver.com'"
-  else
-    raise "RubyGems 2.0 or newer is required to protect against " \
-      "public gem pushes."
-  end
+  # Runtime dependencies
+  s.add_runtime_dependency 'wannabe_bool'
+  # s.add_runtime_dependency 'net-ping', '~> 1.7'
+  s.add_runtime_dependency 'require_all'
+  s.add_runtime_dependency 'sinatra'
+  s.add_runtime_dependency 'rack-flash3'
 
-  spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
-  end
-  spec.bindir        = "exe"
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.14"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  # Dev dependencies
+  s.add_development_dependency 'rake', '~> 12.0', '>= 12.0.0'
+  s.add_development_dependency 'rspec', '~> 3.5.0', '>= 3.5.0'
+  s.add_development_dependency 'launchy', '~> 2.4', '>= 2.4.0'
+  s.add_development_dependency 'simplecov', '~> 0.13.0'
+  s.add_development_dependency 'simplecov-html', '~> 0.10.0'
+  s.add_development_dependency 'rdoc', '~> 5.1', '>= 5.1.0'
 end
