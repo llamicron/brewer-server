@@ -2,15 +2,16 @@ require 'rake'
 
 Gem::Specification.new do |s|
   s.name               = "brewer-server"
-  s.version            = "0.0.01"
-  s.default_executable = "brewer-server"
+  s.version            = "0.0.03"
+  s.default_executablew = "brewer-server"
 
   s.authors = ["Luke Sweeney", "Jake Gutierrez"]
   s.date = %q{2017-04-25}
   s.description = %q{A web interface for llamicron/brewer}
   s.post_install_message = "🍺  have fun 🍺"
   s.email = %q{luke@thesweeneys.org}
-  s.files = FileList.new(['lib/*.rb', 'lib/brewer/server/*.rb', 'bin/*', 'lib/views/*', '[A-Z]*', 'spec/*.rb']).to_a
+  # s.files = FileList.new(['lib/', 'lib/brewer/', 'lib/brewer/server/*.rb', 'bin/*', 'lib/views/*', '[A-Z]*', 'spec/*.rb']).to_a
+  s.files = Dir.glob("{bin,lib}/**/*")
   s.executables = ['brewer-server']
   s.bindir = 'bin'
   s.test_files = FileList.new(["spec/*.rb"]).to_a
@@ -21,6 +22,7 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
 
   # Runtime dependencies
+  s.add_runtime_dependency 'brewer'
   s.add_runtime_dependency 'wannabe_bool'
   # s.add_runtime_dependency 'net-ping', '~> 1.7'
   s.add_runtime_dependency 'require_all'
