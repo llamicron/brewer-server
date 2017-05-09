@@ -3,7 +3,7 @@ require 'rake'
 Gem::Specification.new do |s|
   s.name               = "brewer-server"
   s.version            = "0.0.03"
-  s.default_executablew = "brewer-server"
+  s.default_executable = "brewer-server"
 
   s.authors = ["Luke Sweeney", "Jake Gutierrez"]
   s.date = %q{2017-04-25}
