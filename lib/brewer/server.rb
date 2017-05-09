@@ -1,7 +1,7 @@
 require 'sinatra/base'
 require "sinatra/sse"
 require 'rack/flash'
-require 'brewer'
+# require 'brewer'
 
 module Brewer
   class Server < Sinatra::Base
@@ -18,7 +18,7 @@ module Brewer
       set :views, Proc.new { File.join(File.expand_path("../..", __dir__), "views") }
       enable :sessions
 
-      $brewer = Brewer.new
+      # $brewer = Brewer.new
     end
 
     get '/' do
@@ -28,10 +28,9 @@ module Brewer
     get '/test-sse-stream' do
       sse_stream do |out|
         EM.add_periodic_timer(2) do
-          out.push :event => "pid_status", :data => $brewer.pid.map {|k, v| "#{k}: #{v}"}.join(" || ")
-          
+          # out.push :event => "pid_status", :data => $brewer.pid.map {|k, v| "#{k}: #{v}"}.join(" || ")
           # Hardware agnostic test
-          # out.push :event => "pid_status", :data => {'pid_running' => true, 'sv' => 150, 'pv' => 85}.to_s
+          out.push :event => "pid_status", :data => {'pid_running' => true, 'sv' => 150, 'pv' => 85}.to_s
         end
       end
     end
