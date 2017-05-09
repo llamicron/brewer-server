@@ -26,14 +26,10 @@ $ gem install brewer-server
 Run
 
 ```shell
-$ brewer-server -p [port]
+$ brewer-server
 ```
 
-replacing, `[port]` with a port of your choosing. Ports under 1024 will need sudo.
-
-Visit `localhost:[port]`
-
-If you're working on a raspberry pi as is intended, replace localhost with the ip of the pi, eg. `192.168.0.224:8080`
+Visit `localhost:8080`
 
 ## Contributing
 
