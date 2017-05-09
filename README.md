@@ -4,7 +4,11 @@ This gem is a web interface for [llamicron/brewer](http://github.com/llamicron/b
 
 ## Installation
 
-Add this line to your application's Gemfile:
+For development, clone the repo and run bundle install from within the `brewer-server` directory.
+
+
+
+To install the production gem, add this line to your application's Gemfile:
 
 ```ruby
 gem 'brewer-server'
@@ -15,18 +19,22 @@ And then execute:
 ```shell
 $ bundle
 ```
-
-Or install it yourself as:
+Or install it with:
 
 ```shell
 $ gem install brewer-server
 ```
 
 ## Usage
-Run
+Is you cloned the repo, run
+```shell
+$ bin/brewer-server
+```
+
+otherwise, just
 
 ```shell
-$ brewer-server
+brewer-server
 ```
 
 Visit `localhost:8080`
