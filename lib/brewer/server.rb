@@ -1,7 +1,7 @@
 require 'sinatra/base'
 require "sinatra/sse"
 require 'rack/flash'
-# require 'brewer'
+require 'brewer'
 
 module Brewer
   class Server < Sinatra::Base
