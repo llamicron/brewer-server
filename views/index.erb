@@ -7,4 +7,19 @@
   <body>
     <h1>this is a test homepage</h1>
   </body>
+  <div id="result">
+  <h3 id="pid"> </h3>
+  <h3 id="sv"> </h3>
+  <h3 id="pv"> </h3>
+  </div>
+  <script type="text/javascript">
+    var source = new EventSource("/test-sse-stream");
+    source.addEventListener('pid_status', function (event) {
+      var data = JSON.parse(event.data);
+      console.log(data);
+      pid.innerText = "PID STATUS: " + data.pid_running;
+      sv.innerText = "SV: " + data.sv;
+      pv.innerText = "PV: " + data.pv;
+    }, false);
+  </script>
 </html>

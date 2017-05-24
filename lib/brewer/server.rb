@@ -26,7 +26,7 @@ module Brewer
     get '/test-sse-stream' do
       sse_stream do |out|
         EM.add_periodic_timer(2) do
-          out.push :event => "pid_status", :data => {'pid_running' => true, 'sv' => 150, 'pv' => 85}.to_s
+          out.push :event => "pid_status", :data => {'pid_running' => true, 'sv' => 150, 'pv' => 85}.to_json
         end
       end
     end
