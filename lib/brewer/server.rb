@@ -23,10 +23,27 @@ module Brewer
       erb :index
     end
 
-    get '/test-sse-stream' do
+    get '/pid' do
       sse_stream do |out|
         EM.add_periodic_timer(2) do
-          out.push :event => "pid_status", :data => {'pid_running' => true, 'sv' => 150, 'pv' => 85}.to_json
+          out.push :event => "pid_status", :data => {
+            'pid_running' => rand(0..1).to_b,
+            'sv'          => rand(75..150),
+            'pv'          => rand(75..150)
+          }.to_json
+        end
+      end
+    end
+
+    get '/relays' do
+      sse_stream do |out|
+        EM.add_periodic_timer(2) do
+          out.push :event => "relays_status", :data => {
+            "hltToMash"  => rand(0..1),
+            "hlt"        => rand(0..1),
+            "rimsToMash" => rand(0..1),
+            "pump"       => rand(0..1)
+          }.to_json
         end
       end
     end
