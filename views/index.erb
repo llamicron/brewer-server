@@ -28,11 +28,11 @@
     <div class="mdl-grid">
       <h1 class="mdl-cell mdl-cell--12-col">this is a test homepage</h1>
     
-      <div id="result" class="mdl-cell mdl-cell--12-col">
+      <div id="result" class="mdl-cell mdl-cell--6-col">
         <div class="mdl_card mdl-shadow--4dp">
           <div class="mdl-card__supporting-text">
-            <div id="spinner" class="mdl-spinner mdl-js-spinner is-active"></div>
-            <div id="info">
+            <div id="pidSpinner" class="mdl-spinner mdl-js-spinner is-active"></div>
+            <div id="pidInfo">
               <h4 id="pid">PID STATUS: Loading...</h3>
               <h4 id="sv">SV: Loading...</h3>
               <h4 id="pv">PV: Loading...</h3>
@@ -41,19 +41,47 @@
         </div>
       </div>
 
+      <div id="result" class="mdl-cell mdl-cell--6-col">
+        <div class="mdl_card mdl-shadow--4dp">
+          <div class="mdl-card__supporting-text">
+            <div id="relaySpinner" class="mdl-spinner mdl-js-spinner is-active"></div>
+            <div id="relayInfo">
+              <h4 id="hltToMash">hltToMash: Loading...</h3>
+              <h4 id="hlt">hlt: Loading...</h3>
+              <h4 id="rimsToMash">rimsToMash: Loading...</h3>
+              <h4 id="pump">pump: Loading...</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </body>
   <script type="text/javascript">
-    info.style.display="none"
-    var source = new EventSource("/test-sse-stream");
-    source.addEventListener('pid_status', function (event) {
+    pidInfo.style.display="none";
+    relayInfo.style.display="none";
+    var pidsource = new EventSource("/pid");
+    pidsource.addEventListener('pid_status', function (event) {
       var data = JSON.parse(event.data);
       console.log(data);
       pid.innerText = "PID STATUS: " + data.pid_running;
       sv.innerText = "SV: " + data.sv;
       pv.innerText = "PV: " + data.pv;
-      spinner.style.display="none";
-      info.style.display="initial";
+      pidSpinner.style.display="none";
+      pidInfo.style.display="initial";
     }, false);
+
+    var relaysource = new EventSource("/relays");
+    relaysource.addEventListener('relays_status', function (event) {
+      var data = JSON.parse(event.data);
+      console.log(data);
+      hltToMash.innerText = "hltToMash: " + data.hltToMash;
+      hlt.innerText = "hlt: " + data.hlt;
+      rimsToMash.innerText = "rimsToMash: " + data.rimsToMash;
+      pump.innerText = "pump: " + data.pump;
+      relaySpinner.style.display="none";
+      relayInfo.style.display="initial";
+    }, false);
+
   </script>
 </html>
