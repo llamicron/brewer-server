@@ -2,6 +2,7 @@ require 'sinatra/base'
 require "sinatra/sse"
 require 'rack/flash'
 require 'brewer'
+require "brewer/stats"
 
 module Brewer
   class Server < Sinatra::Base
@@ -44,6 +45,18 @@ module Brewer
             "rimsToMash" => rand(0..1),
             "pump"       => rand(0..1)
           }.to_json
+        end
+      end
+    end
+
+    get "/stats" do
+      sse_stream do |out|
+        EM.add_periodic_timer(2) do
+          # This uses hardware
+          # out.push :event => "stats", :data => Brewer::Stats::Formatter::json
+
+          # This uses unix timesptamps.
+          out.push :event => "stats", :data => {"1496101425":{"pv":138.7},"1496101426":{"pv":138.7},"1496101427":{"pv":138.7},"1496101428":{"pv":138.7},"1496101429":{"pv":138.7},"1496101430":{"pv":138.7}}.to_json
         end
       end
     end
