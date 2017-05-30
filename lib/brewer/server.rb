@@ -53,7 +53,7 @@ module Brewer
       sse_stream do |out|
         EM.add_periodic_timer(2) do
           # This uses hardware
-          # out.push :event => "stats", :data => Brewer::Stats::Formatter::json
+          # out.push :event => "stats", :data => Brewer::Stats::json
 
           # This uses unix timesptamps.
           out.push :event => "stats", :data => {"1496101425":{"pv":138.7},"1496101426":{"pv":138.7},"1496101427":{"pv":138.7},"1496101428":{"pv":138.7},"1496101429":{"pv":138.7},"1496101430":{"pv":138.7}}.to_json
