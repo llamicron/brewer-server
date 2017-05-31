@@ -1,157 +1,163 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Homepage</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
-    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-  </head>
-  <style>
-    body{
-      text-align: center;
-    }
-  .mdl_card{
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Homepage</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+</head>
+<style>
+  body {
+    text-align: center;
+  }
+
+  .mdl_card {
     max-width: 500px;
     text-align: center;
     margin: auto;
   }
-  #result{
+
+  #result {
     text-align: center;
   }
-  .mdl-card__supporting-text{
+
+  .mdl-card__supporting-text {
     color: #333;
   }
-  </style>
-  <body>
-    <div class="mdl-grid">
-      <h1 class="mdl-cell mdl-cell--12-col">this is a test homepage</h1>
-    
-      <div id="result" class="mdl-cell mdl-cell--6-col">
-        <div class="mdl_card mdl-shadow--4dp">
-          <div class="mdl-card__supporting-text">
-            <div id="pidSpinner" class="mdl-spinner mdl-js-spinner is-active"></div>
-            <div id="pidInfo">
-              <h4 id="pid">PID STATUS: Loading...</h3>
+</style>
+
+<body>
+  <div class="mdl-grid">
+    <h1 class="mdl-cell mdl-cell--12-col">this is a test homepage</h1>
+
+    <div id="result" class="mdl-cell mdl-cell--6-col">
+      <div class="mdl_card mdl-shadow--4dp">
+        <div class="mdl-card__supporting-text">
+          <div id="pidSpinner" class="mdl-spinner mdl-js-spinner is-active"></div>
+          <div id="pidInfo">
+            <h4 id="pid">PID STATUS: Loading...</h3>
               <h4 id="sv">SV: Loading...</h3>
-              <h4 id="pv">PV: Loading...</h3>
-            </div>
+                <h4 id="pv">PV: Loading...</h3>
           </div>
         </div>
       </div>
-
-      <div id="result" class="mdl-cell mdl-cell--6-col">
-        <div class="mdl_card mdl-shadow--4dp">
-          <div class="mdl-card__supporting-text">
-            <div id="relaySpinner" class="mdl-spinner mdl-js-spinner is-active"></div>
-            <div id="relayInfo">
-              <h4 id="hltToMash">hltToMash: Loading...</h3>
-              <h4 id="hlt">hlt: Loading...</h3>
-              <h4 id="rimsToMash">rimsToMash: Loading...</h3>
-              <h4 id="pump">pump: Loading...</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mdl-cell mdl-cell--6-col">
-        <canvas id="pvChart"></canvas>
-      </div>
-
     </div>
-  </body>
-  <script type="text/javascript">
-    pidInfo.style.display="none";
-    relayInfo.style.display="none";
-    var pidsource = new EventSource("/pid");
-    pidsource.addEventListener('pid_status', function (event) {
-      var result = JSON.parse(event.data);
-      console.log(data);
-      pid.innerText = "PID STATUS: " + result.pid_running;
-      sv.innerText = "SV: " + result.sv;
-      pv.innerText = "PV: " + result.pv;
-      data.push(result.pv);
-      labels.push(moment().format());
-      if(data.length > 20){
-        data.shift();
-        labels.shift();
-      }
-      myChart.update();
-      pidSpinner.style.display="none";
-      pidInfo.style.display="initial";
-    }, false);
 
-    var relaysource = new EventSource("/relays");
-    relaysource.addEventListener('relays_status', function (event) {
-      var data = JSON.parse(event.data);
-      console.log(data);
-      hltToMash.innerText = "hltToMash: " + data.hltToMash;
-      hlt.innerText = "hlt: " + data.hlt;
-      rimsToMash.innerText = "rimsToMash: " + data.rimsToMash;
-      pump.innerText = "pump: " + data.pump;
-      relaySpinner.style.display="none";
-      relayInfo.style.display="initial";
-    }, false);
+    <div id="result" class="mdl-cell mdl-cell--6-col">
+      <div class="mdl_card mdl-shadow--4dp">
+        <div class="mdl-card__supporting-text">
+          <div id="relaySpinner" class="mdl-spinner mdl-js-spinner is-active"></div>
+          <div id="relayInfo">
+            <h4 id="hltToMash">hltToMash: Loading...</h3>
+              <h4 id="hlt">hlt: Loading...</h3>
+                <h4 id="rimsToMash">rimsToMash: Loading...</h3>
+                  <h4 id="pump">pump: Loading...</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mdl-cell mdl-cell--6-col">
+      <canvas id="pvChart"></canvas>
+    </div>
+
+  </div>
+</body>
+<script type="text/javascript">
+  pidInfo.style.display = "none";
+  relayInfo.style.display = "none";
+  var pidsource = new EventSource("/pid");
+  pidsource.addEventListener('pid_status', function (event) {
+    var result = JSON.parse(event.data);
+    console.log(data);
+    pid.innerText = "PID STATUS: " + result.pid_running;
+    sv.innerText = "SV: " + result.sv;
+    pv.innerText = "PV: " + result.pv;
+    data.push(result.pv);
+    labels.push(moment().format());
+    if (data.length > 20) {
+      data.shift();
+      labels.shift();
+    }
+    myChart.update();
+    pidSpinner.style.display = "none";
+    pidInfo.style.display = "initial";
+  }, false);
+
+  var relaysource = new EventSource("/relays");
+  relaysource.addEventListener('relays_status', function (event) {
+    var data = JSON.parse(event.data);
+    console.log(data);
+    hltToMash.innerText = "hltToMash: " + data.hltToMash;
+    hlt.innerText = "hlt: " + data.hlt;
+    rimsToMash.innerText = "rimsToMash: " + data.rimsToMash;
+    pump.innerText = "pump: " + data.pump;
+    relaySpinner.style.display = "none";
+    relayInfo.style.display = "initial";
+  }, false);
 
 
 
-    var labels = [ // Date Objects
-      
-    ];
-    var data = [
-      
-    ];
-    function newDate(days) {
-			return moment().add(days, 's').toDate();
-		}
+  var labels = [ // Date Objects
 
-    function randomScalingFactor() {
-      return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
-    };
+  ];
+  var data = [
 
-    var ctx = document.getElementById("pvChart").getContext('2d');
-    var myChart = new Chart(ctx, {
+  ];
+  function newDate(days) {
+    return moment().add(days, 's').toDate();
+  }
+
+  function randomScalingFactor() {
+    return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
+  };
+
+  var ctx = document.getElementById("pvChart").getContext('2d');
+  var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: labels,
-        datasets: [{
-					label: "My First dataset",
-          tension: 0,
-          fill: true,
-					backgroundColor: "rgba(255, 0, 0, 0.5)",
-					borderColor: "#333",
-					data: data,
-				}]
+      labels: labels,
+      datasets: [{
+        label: "My First dataset",
+        tension: 0,
+        fill: true,
+        backgroundColor: "rgba(255, 0, 0, 0.5)",
+        borderColor: "#333",
+        data: data,
+      }]
     },
     options: {
       scales: {
         xAxes: [{
-						type: "time",
-						time: {
-							format: 'HH:mm:ss',
-							// round: 'day'
-							tooltipFormat: 'HH:mm:ss'
-						},
-            ticks: {
-                autoSkip: true,
-                maxTicksLimit: 10
-            },
-						scaleLabel: {
-							display: true,
-							labelString: 'Time'
-						}
-					}, ],
-          yAxes: [{
-						scaleLabel: {
-							display: true,
-							labelString: 'PV Value'
-						}
-					}]
+          type: "time",
+          time: {
+            format: 'HH:mm:ss',
+            // round: 'day'
+            tooltipFormat: 'HH:mm:ss'
+          },
+          ticks: {
+            autoSkip: true,
+            maxTicksLimit: 10
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Time'
+          }
+        },],
+        yAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'PV Value'
+          }
+        }]
       }
     }
-    });
-  </script>
+  });
+</script>
+
 </html>
