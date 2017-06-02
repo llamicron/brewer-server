@@ -33,16 +33,15 @@
 
 <body>
   <div class="mdl-grid">
-    <h1 class="mdl-cell mdl-cell--12-col">this is a test homepage</h1>
 
     <div id="result" class="mdl-cell mdl-cell--6-col">
       <div class="mdl_card mdl-shadow--4dp">
         <div class="mdl-card__supporting-text">
           <div id="pidSpinner" class="mdl-spinner mdl-js-spinner is-active"></div>
           <div id="pidInfo">
-            <h4 id="pid">PID STATUS: Loading...</h3>
-              <h4 id="sv">SV: Loading...</h3>
-                <h4 id="pv">PV: Loading...</h3>
+            <h3 id="pid">PID STATUS: Loading...</h3>
+            <h3 id="sv">SV: Loading...</h3>
+            <h3 id="pv">PV: Loading...</h3>
           </div>
         </div>
       </div>
@@ -53,31 +52,36 @@
         <div class="mdl-card__supporting-text">
           <div id="relaySpinner" class="mdl-spinner mdl-js-spinner is-active"></div>
           <div id="relayInfo">
-            <h4 id="hltToMash">hltToMash: Loading...</h3>
-              <h4 id="hlt">hlt: Loading...</h3>
-                <h4 id="rimsToMash">rimsToMash: Loading...</h3>
-                  <h4 id="pump">pump: Loading...</h3>
+            <h3 id="hltToMash">hltToMash: Loading...</h3>
+            <h3 id="hlt">hlt: Loading...</h3>
+            <h3 id="rimsToMash">rimsToMash: Loading...</h3>
+            <h3 id="pump">pump: Loading...</h3>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="mdl-cell mdl-cell--6-col">
+    <div class="mdl-cell mdl-cell--12-col" style="height: 500px;">
       <canvas id="pvChart"></canvas>
     </div>
 
   </div>
 </body>
 <script type="text/javascript">
+  var labels = [];
+  var data = [];
+
   pidInfo.style.display = "none";
   relayInfo.style.display = "none";
+
+
   var pidsource = new EventSource("/pid");
   pidsource.addEventListener('pid_status', function (event) {
     var result = JSON.parse(event.data);
     console.log(data);
-    pid.innerText = "PID STATUS: " + result.pid_running;
-    sv.innerText = "SV: " + result.sv;
-    pv.innerText = "PV: " + result.pv;
+    pid.innerText = "PID: " + (result.pid_running ? 'ON' : 'OFF');
+    sv.innerText = "SV: " + result.sv + '\u00B0F';
+    pv.innerText = "PV: " + result.pv + '\u00B0F';
     data.push(result.pv);
     labels.push(moment().format());
     if (data.length > 20) {
@@ -93,29 +97,13 @@
   relaysource.addEventListener('relays_status', function (event) {
     var data = JSON.parse(event.data);
     console.log(data);
-    hltToMash.innerText = "hltToMash: " + data.hltToMash;
-    hlt.innerText = "hlt: " + data.hlt;
-    rimsToMash.innerText = "rimsToMash: " + data.rimsToMash;
-    pump.innerText = "pump: " + data.pump;
+    hltToMash.innerText = "HLT: " + (Boolean(data.hltToMash) ? 'mash' : 'boil');
+    hlt.innerText = "HLT: " + (Boolean(data.hlt) ? 'open' : 'closed');
+    rimsToMash.innerText = "RIMS: " + (Boolean(data.rimsToMash) ? 'mash' : 'boil');
+    pump.innerText = "PUMP: " + (Boolean(data.pump) ? 'on' : 'false');
     relaySpinner.style.display = "none";
     relayInfo.style.display = "initial";
   }, false);
-
-
-
-  var labels = [ // Date Objects
-
-  ];
-  var data = [
-
-  ];
-  function newDate(days) {
-    return moment().add(days, 's').toDate();
-  }
-
-  function randomScalingFactor() {
-    return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
-  };
 
   var ctx = document.getElementById("pvChart").getContext('2d');
   var myChart = new Chart(ctx, {
@@ -123,21 +111,21 @@
     data: {
       labels: labels,
       datasets: [{
-        label: "My First dataset",
+        label: "PV",
         tension: 0,
         fill: true,
-        backgroundColor: "rgba(255, 0, 0, 0.5)",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
         borderColor: "#333",
         data: data,
       }]
     },
     options: {
+      maintainAspectRatio: false,
       scales: {
         xAxes: [{
           type: "time",
           time: {
             format: 'HH:mm:ss',
-            // round: 'day'
             tooltipFormat: 'HH:mm:ss'
           },
           ticks: {
@@ -158,6 +146,7 @@
       }
     }
   });
+
 </script>
 
 </html>
