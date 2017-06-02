@@ -2,7 +2,7 @@ require 'sinatra/base'
 require "sinatra/sse"
 require 'rack/flash'
 require 'brewer'
-require "brewer/stats"
+require 'wannabe_bool'
 
 module Brewer
   class Server < Sinatra::Base
@@ -18,6 +18,8 @@ module Brewer
       set :port, 8080
       set :views, Proc.new { File.join(File.expand_path("../..", __dir__), "views") }
       enable :sessions
+
+      $controller = Brewer::Controller.new
     end
 
     get '/' do
@@ -27,11 +29,7 @@ module Brewer
     get '/pid' do
       sse_stream do |out|
         EM.add_periodic_timer(2) do
-          out.push :event => "pid_status", :data => {
-            'pid_running' => rand(0..1).to_b,
-            'sv'          => rand(75..150),
-            'pv'          => rand(75..150)
-          }.to_json
+          out.push :event => "pid_status", :data => $controller.pid_to_web.to_json
         end
       end
     end
@@ -39,24 +37,7 @@ module Brewer
     get '/relays' do
       sse_stream do |out|
         EM.add_periodic_timer(2) do
-          out.push :event => "relays_status", :data => {
-            "hltToMash"  => rand(0..1),
-            "hlt"        => rand(0..1),
-            "rimsToMash" => rand(0..1),
-            "pump"       => rand(0..1)
-          }.to_json
-        end
-      end
-    end
-
-    get "/stats" do
-      sse_stream do |out|
-        EM.add_periodic_timer(2) do
-          # This uses hardware
-          # out.push :event => "stats", :data => Brewer::Stats::json
-
-          # This uses unix timesptamps.
-          out.push :event => "stats", :data => {"1496101425":{"pv":138.7},"1496101426":{"pv":138.7},"1496101427":{"pv":138.7},"1496101428":{"pv":138.7},"1496101429":{"pv":138.7},"1496101430":{"pv":138.7}}.to_json
+          out.push :event => "relays_status", :data => $controller.relays_status_to_web.to_json
         end
       end
     end

@@ -79,9 +79,9 @@
   pidsource.addEventListener('pid_status', function (event) {
     var result = JSON.parse(event.data);
     console.log(data);
-    pid.innerText = "PID: " + (result.pid_running ? 'ON' : 'OFF');
-    sv.innerText = "SV: " + result.sv + '\u00B0F';
-    pv.innerText = "PV: " + result.pv + '\u00B0F';
+    pid.innerText = "PID: " + (result.pid_running ? 'on' : 'off');
+    sv.innerText = "SV: " + result.sv + ' \u00B0F';
+    pv.innerText = "PV: " + result.pv + ' \u00B0F';
     data.push(result.pv);
     labels.push(moment().format());
     if (data.length > 20) {
@@ -97,10 +97,10 @@
   relaysource.addEventListener('relays_status', function (event) {
     var data = JSON.parse(event.data);
     console.log(data);
-    hltToMash.innerText = "HLT: " + (Boolean(data.hltToMash) ? 'mash' : 'boil');
+    hltToMash.innerText = "HLT → " + (Boolean(data.hltToMash) ? 'mash' : 'boil');
     hlt.innerText = "HLT: " + (Boolean(data.hlt) ? 'open' : 'closed');
-    rimsToMash.innerText = "RIMS: " + (Boolean(data.rimsToMash) ? 'mash' : 'boil');
-    pump.innerText = "PUMP: " + (Boolean(data.pump) ? 'on' : 'false');
+    rimsToMash.innerText = "RIMS → " + (Boolean(data.rimsToMash) ? 'mash' : 'boil');
+    pump.innerText = "PUMP: " + (Boolean(data.pump) ? 'on' : 'off');
     relaySpinner.style.display = "none";
     relayInfo.style.display = "initial";
   }, false);
